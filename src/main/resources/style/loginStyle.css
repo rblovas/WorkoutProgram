@@ -1,0 +1,6 @@
+.loginInID{
+    -fx-background-color: white;
+}
+.loginOutID{
+    -fx-background-image: url("../IMG/loginBg.jpeg");
+}
