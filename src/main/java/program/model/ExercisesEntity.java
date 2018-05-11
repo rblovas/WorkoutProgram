@@ -9,48 +9,45 @@ import javax.persistence.*;
 @Entity
 @Table(name = "EXERCISES")
 
-
 @Data //fontos, JPA használja a Gettereket, Settereket
 @EqualsAndHashCode  //mégfontosabb, hiszen a JPA ezeken keresztül tud összehasonlítani 2 entitást
 @ToString(callSuper = true)
-public class ExerciseEntity {
+public class ExercisesEntity {
 
-    /**
-     * Entitás elsődleges, automatikusan generált kulcsa. (kötelező JPA elem)
-     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)             // az itt zárójelben megadott 'strategy'-nek amúgy ez a default értéke is, csak szemléltetés miatt írtam ide,
     @Column(name = "ID", nullable = false, updatable = false)   // hiszen a JPA tud saját magától is egyedi ID-t generálni
     private Long id;
 
-    /**
-     * Gyakorlat neve.
-     */
     @Column(name = "NAME")
     private String name;
 
-    /**
-     * Gyakorlattal erősített testrész
-     */
     @Column(name = "BODYPART")
     private String bodypart;
 
-    /**
-     * Leírás
-     */
     @Column(name = "DESCRIPTION")
     private String description;
 
-    /**
-     * Kép
-     */
-    @Column(name = "IMAGE")
-    private String image;
+    @Column(name = "WOMANWEIGHTLOSS")
+    private String womanWeightLoss;
+
+    @Column(name = "MANWEIGHTLOSS")
+    private String manWeightLoss;
+
+    @Column(name = "WOMANCUTTING")
+    private String womanCutting;
+
+    @Column(name = "MANCUTTING")
+    private String manCutting;
+
+    @Column(name = "EASY")
+    private String easy;
+
+    @Column(name = "TIME")
+    private int time;
+
+    @Column(name = "TYPE")
+    private String type;
 
 
-    /**
-     * Súly léptetés
-     */
-    @Column(name = "WEIGHT_STEP")
-    private Integer step;
 }

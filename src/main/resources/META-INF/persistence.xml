@@ -5,21 +5,12 @@
         <class>program.model.UserEntity</class>
 
         <properties>
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> <!--value=drop.and.create míg próbálkozol-->
-            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
-
-            <property name="eclipselink.target-database" value="Derby"/>
-
+            <property name="javax.persistence.schema-generation.database.action" value="create"/> <!--value=drop.and.create míg próbálkozol-->
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:database;create=true"/>
 
             <property name="javax.persistence.jdbc.user" value="APP"/>
             <property name="javax.persistence.jdbc.password" value="APP"/>
-
-            <property name="eclipselink.logging.level" value="FINE"/>
-            <property name="eclipselink.logging.level.sql" value="FINE"/>
-            <property name="eclipselink.logging.parameres" value="TRUE"/>
-            <property name="eclipselink.logging.logger" value="DefaultLogger"/>
 
         </properties>
     </persistence-unit>

@@ -66,45 +66,107 @@ public class UserEntity implements Serializable {
 
     /**
      * Nem
-     * 0: nő
-     * 1: férfi
+     * female, male
      */
     @Column(name = "GENDER")
-    private int gender;
+    private String gender;
 
     /**
-     * Életkor
+     * How many days user did
      */
-    @Column(name = "AGE")
-    private int age;
+    @Column(name = "DAYS")
+    private int days;
+
 
     /**
      * Edzés típusa
-     * 0: Fogyás
-     * 1: Szálkásítás
-     * 2: Tömegelés
+     * weightloss, cutting
      */
     @Column(name = "TYPE")
-    private int type;
+    private String type;
 
-    /**
-     * Kezdő súly
-     */
+    //Kezdő súly
     @Column(name = "START_WEIGHT")
     private int startWeight;
 
-    /**
-     * Aktuális súly
-     */
 
-    @Column(name = "ACTUAL_WEIGHT")
-    private int actualWeight;
-
-
-    /**
-     * Cél súly
-     */
+    //Cél súly
     @Column(name = "GOAL_WEIGHT")
     private int goalWeight;
 
+
+    @Column(name = "CARDIO_LEG")
+    private String cardioLeg;
+
+    @Column(name = "GLUTES")
+    private String glutes;
+
+    @Column(name = "QUADS")
+    private String quads;
+
+    @Column(name = "HAMSTRING")
+    private String hamstring;
+
+    @Column(name = "CALVES")
+    private String calves;
+
+    @Column(name = "ABS_LEG")
+    private String absLeg;
+
+
+    @Column(name = "CARDIO_UP")
+    private String cardioUp;
+
+    @Column(name = "SHOULDERS")
+    private String shoulders;
+
+    @Column(name = "CHEST")
+    private String chest;
+
+    @Column(name = "BICEPS")
+    private String biceps;
+
+    @Column(name = "BACK")
+    private String back;
+
+    @Column(name = "ABS_UP")
+    private String absUp;
+
+
+    @Column(name = "CARDIO_LEGW")
+    private int cardioLegw;
+
+    @Column(name = "GLUTESW")
+    private int glutesw;
+
+    @Column(name = "QUADSW")
+    private int quadsw;
+
+    @Column(name = "HAMSTRINGW")
+    private int hamstringw;
+
+    @Column(name = "CALVESW")
+    private int calvesw;
+
+    @Column(name = "ABS_LEGW")
+    private int absLegw;
+
+
+    @Column(name = "CARDIO_UPW")
+    private int cardioUpw;
+
+    @Column(name = "SHOULDERSW")
+    private int shouldersw;
+
+    @Column(name = "CHESTW")
+    private int chestw;
+
+    @Column(name = "BICEPSW")
+    private int bicepsw;
+
+    @Column(name = "BACKW")
+    private int backw;
+
+    @Column(name = "ABS_UPW")
+    private int absUpw;
 }

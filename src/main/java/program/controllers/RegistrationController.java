@@ -1,11 +1,12 @@
 package program.controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import program.dao.UserDAOImpl;
@@ -25,22 +26,42 @@ public class RegistrationController extends Conroller {
     @FXML
     public Button buttonRegistration;
     @FXML
-    public RadioButton radioWoman;
+    public RadioButton radioFemale;
     @FXML
-    public RadioButton radioMan;
+    public RadioButton radioMale;
     @FXML
     public RadioButton radioWeightLoss;
     @FXML
     public RadioButton radioCutting;
+    public ImageView imageGender;
+    public TextField textYourWeight;
+    public TextField textGoalWeight;
+
 
     private UserService userService;
 
     private UserEntity userEntity;
     private Stage dialogStage;
 
+    private final ToggleGroup gender = new ToggleGroup();
+    private final ToggleGroup type = new ToggleGroup();
+
     @FXML
     private void initialize(){
         userService = new UserServiceImpl(new UserDAOImpl(Manager.getInstance()));
+
+        Image image = new Image("/IMG/genderShadow.jpg");
+        imageGender.setImage(image);
+        radioMale.setText("Male");
+        radioMale.setToggleGroup(gender);
+        radioFemale.setText("Female");
+        radioFemale.setToggleGroup(gender);
+
+        radioWeightLoss.setText("Weight Loss");
+        radioWeightLoss.setToggleGroup(type);
+        radioCutting.setText("Cutting");
+        radioCutting.setToggleGroup(type);
+
     }
 
     @FXML
@@ -52,6 +73,9 @@ public class RegistrationController extends Conroller {
         String password = textPassword.getText();
         String passwordCheck = textPasswordCheck.getText();
 
+        Integer startweight = Integer.valueOf(textYourWeight.getText());
+        Integer goalweight = Integer.valueOf(textGoalWeight.getText());
+
         if (name.isEmpty()) {
             errorBox("Nem adtál meg felhasználónevet!", "Hiba", "Hiba történt!");
         } else if (password.isEmpty()) {
@@ -60,28 +84,49 @@ public class RegistrationController extends Conroller {
             errorBox("Nem adtad meg másodjára a jelszót!", "Hiba", "Hiba történt!");
         } else if (!password.equals(passwordCheck)) {
             errorBox("A jelszavak nem egyeznek!", "Hiba", "Hiba történt!");
-        }/* else if (!selected) {
-            errorBox("Nem választottál pokémont!", "Hiba", "Hiba történt!");
-        }
-*/
+        } else if (gender.getSelectedToggle() == null) {
+            errorBox("Nem választottál nemet!", "Hiba", "Hiba történt!");
+        } else if (type.getSelectedToggle() == null) {
+            errorBox("Nem választottál edzéstípust!", "Hiba", "Hiba történt!");
+        } else if (textYourWeight.getText().isEmpty()) {
+            errorBox("Nem adtál meg kezdősúlyt", "Hiba", "Hiba történt!");
+        } else if (textGoalWeight.getText().isEmpty()) {
+            errorBox("Nem adtál meg célsúlyt", "Hiba", "Hiba történt!");
+        } else {
+
+            userEntity.setName(name);
+            userEntity.setPassword(password);
+            userEntity.setStartWeight(startweight);
+            userEntity.setGoalWeight(goalweight);
+            userEntity.setDays(1);
 
 
-        userEntity.setName(name);
-        userEntity.setPassword(password);
+            if(radioMale.isSelected())
+                userEntity.setGender(radioMale.getText());
+            else
+                userEntity.setGender(radioFemale.getText());
 
-        try {
+            if(radioWeightLoss.isSelected())
+                userEntity.setType(radioWeightLoss.getText());
+            else
+                userEntity.setType(radioCutting.getText());
 
-            if(userService.isRegistered(name) == null){
-                userService.createUser(userEntity);
+
+            try {
+
+
+                if (userService.isRegistered(name) == null) {
+                    userService.createUser(userEntity);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                log.error("Entity mentési hiba!");
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("Entity mentési hiba!");
+            infoBox("Sikeres regisztráció!", "Juhé!", "Most már bejelentkezhetsz!");
+            sceneSwitch(dialogStage, "login", actionEvent);
         }
-
-        infoBox("Sikeres regisztráció!", "Juhé!", "Most már bejelentkezhetsz!");
-        sceneSwitch(dialogStage,"login",actionEvent);
     }
 
     public void backToLogin(ActionEvent actionEvent) {

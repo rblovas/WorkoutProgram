@@ -2,10 +2,12 @@ package program.dao;
 
 import lombok.extern.slf4j.Slf4j;
 import program.dao.api.UserDAO;
+import program.model.ExercisesEntity;
 import program.model.UserEntity;
 import program.utility.Manager;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Slf4j
@@ -59,5 +61,6 @@ public class UserDAOImpl implements UserDAO {
             return null; // Ha a lekérdezés nem talált eredményt, akkor nullal térünk vissza, regelhet a felhasználó.
         }
     }
+
 }
 

@@ -4,13 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import program.dao.UserDAOImpl;
+import program.model.UserEntity;
 import program.service.UserServiceImpl;
 import program.service.api.UserService;
 import program.utility.Manager;
@@ -48,18 +47,14 @@ public class LoginController extends Conroller {
         } else if (password.isEmpty()) {
             errorBox("Nem adtál meg jelszót!", "Hiba", "Hiba történt!");
         }else if(userService.isLoggedIn(name, password) != null) {
+            UserServiceImpl.setUser(name);
 
-            Node source = (Node) event.getSource();
-            Stage newStage = (Stage) source.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader((getClass().getClassLoader().getResource("views/today.fxml")));
-            Scene newScene = new Scene(loader.load());
-            loader.<TodayController>getController().setName(name);
+            if(userService.isRegistered(name).getDays() < 3) {
+                sceneSwitch(dialogStage, "setmainpage", event);
+            } else {
+                sceneSwitch(dialogStage, "mainpage", event);
+            }
 
-            newStage.setScene(newScene);
-            newStage.show();
-
-
-//            sceneSwitch(dialogStage,"mainScreen", event);
         }else{
             errorBox("Nem található ilyen felhasználó!","Hiba!", "");
         }

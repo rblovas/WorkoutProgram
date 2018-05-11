@@ -18,15 +18,15 @@
             <DropShadow height="20.0" radius="9.5" width="20.0" />
          </effect>
       </AnchorPane>
-      <AnchorPane fx:id="loginInID" layoutX="100.0" layoutY="125.0" prefHeight="250.0" prefWidth="400.0" styleClass="loginInID">
+      <AnchorPane layoutX="100.0" layoutY="125.0" prefHeight="250.0" prefWidth="400.0" styleClass="loginInID">
          <children>
-                  <Label layoutX="155.0" layoutY="28.0" text="Bejelentkezés" />
-                  <TextField fx:id="textUsername" layoutX="115.0" layoutY="61.0" />
-                  <PasswordField fx:id="textPassword" layoutX="115.0" layoutY="90.0" />
-                  <Label layoutX="72.0" layoutY="66.0" text="Név" />
-                  <Label layoutX="67.0" layoutY="95.0" text="Jelszó" />
-            <Button fx:id="loginButton" layoutX="115.0" layoutY="120.0" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="171.0" text="Bejelentkezés" />
-            <Button fx:id="buttonGoToRegistration" layoutX="115.0" layoutY="156.0" mnemonicParsing="false" onAction="#goToRegistration" prefHeight="26.0" prefWidth="171.0" text="Registration" />
+                  <Label layoutX="186.0" layoutY="29.0" text="Login" />
+                  <TextField fx:id="textUsername" layoutX="115.0" layoutY="61.0" prefHeight="25.0" prefWidth="171.0" />
+                  <PasswordField fx:id="textPassword" layoutX="115.0" layoutY="90.0" prefHeight="25.0" prefWidth="171.0" />
+                  <Label layoutX="60.0" layoutY="65.0" text="Name" />
+                  <Label layoutX="60.0" layoutY="94.0" text="Password" />
+            <Button fx:id="loginButton" layoutX="115.0" layoutY="139.0" mnemonicParsing="false" onAction="#login" prefHeight="26.0" prefWidth="171.0" text="Login" />
+            <Button fx:id="buttonGoToRegistration" layoutX="115.0" layoutY="171.0" mnemonicParsing="false" onAction="#goToRegistration" prefHeight="26.0" prefWidth="171.0" text="Registration" />
          </children>
       </AnchorPane>
          </children>
