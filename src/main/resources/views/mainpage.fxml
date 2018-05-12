@@ -53,12 +53,12 @@
                         <ChoiceBox fx:id="feedback3" layoutX="326.0" layoutY="230.0" prefHeight="25.0" prefWidth="42.0" />
                         <ChoiceBox fx:id="feedback4" layoutX="326.0" layoutY="280.0" prefHeight="25.0" prefWidth="42.0" />
                         <ChoiceBox fx:id="feedback5" layoutX="326.0" layoutY="330.0" prefHeight="25.0" prefWidth="42.0" />
-                        <Hyperlink fx:id="linkCardio" layoutX="110.0" layoutY="100.0" text="More info" />
-                        <Hyperlink fx:id="linkGluSho" layoutX="110.0" layoutY="150.0" text="More info" />
-                        <Hyperlink fx:id="linkQuChe" layoutX="110.0" layoutY="200.0" text="More info" />
-                        <Hyperlink fx:id="linkHamBi" layoutX="110.0" layoutY="250.0" text="More info" />
-                        <Hyperlink fx:id="linkCalBa" layoutX="110.0" layoutY="300.0" text="More info" />
-                        <Hyperlink fx:id="linkAbs" layoutX="110.0" layoutY="350.0" text="More info" />
+                        <Hyperlink fx:id="linkCardio" layoutX="110.0" layoutY="100.0" onAction="#acitonMoreInfoCardio" text="More info" />
+                        <Hyperlink fx:id="linkGluSho" layoutX="110.0" layoutY="150.0" onAction="#acitonMoreInfoGluSho" text="More info" />
+                        <Hyperlink fx:id="linkQuChe" layoutX="110.0" layoutY="200.0" onAction="#acitonMoreInfoQuChe" text="More info" />
+                        <Hyperlink fx:id="linkHamBi" layoutX="110.0" layoutY="250.0" onAction="#acitonMoreInfoHamBi" text="More info" />
+                        <Hyperlink fx:id="linkCalBa" layoutX="110.0" layoutY="300.0" onAction="#acitonMoreInfoCalBa" text="More info" />
+                        <Hyperlink fx:id="linkAbs" layoutX="110.0" layoutY="350.0" onAction="#acitonMoreInfoAbs" text="More info" />
                         <Button fx:id="buttonNextDay" layoutX="233.0" layoutY="402.0" mnemonicParsing="false" onAction="#actionNextDay" text="Next Day" />
                         <Label fx:id="labelExercise1" layoutX="110.0" layoutY="80.0" text="Exercise1" />
                         <Label fx:id="labelExercise2" layoutX="110.0" layoutY="130.0" text="Exercise2" />

@@ -1,6 +1,7 @@
 package program.controllers;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Hyperlink;
@@ -77,9 +78,119 @@ public class mainpageController extends Conroller {
         userEntity = userService.isRegistered(name);
         labelNumberOfDay.setText(userEntity.getDays() + ". day");
 
+        levelup();
         whichday();
+
+        List<Label> labelsExercises = Arrays.asList(labelExercise2, labelExercise3, labelExercise4, labelExercise5, labelExercise6);
+        List<Label> exerciseTypes = Arrays.asList(exerciseType1, exerciseType2, exerciseType3, exerciseType4, exerciseType5);
+
+        ExercisesEntity exercisesEntity;
+        for(int record = 0; record < 5; record++){
+            exercisesEntity = exercisesService.getEntityByName(labelsExercises.get(record).getText());
+            exerciseTypes.get(record).setText(exercisesEntity.getType());
+        }
+
+        List<Label> repslabels = Arrays.asList(repsAmount1,repsAmount2,repsAmount3,repsAmount4,repsAmount5);
+        List<Label> weightExercises = Arrays.asList(weightExercise1,weightExercise2,weightExercise3,weightExercise4,weightExercise5);
+        if(userEntity.getType().equals("Weight Loss")){
+            for(int record = 0; record < 5; record++) {
+                if(exerciseTypes.get(record).getText().equals("amount")){
+                    repslabels.get(record).setText("4 x " + weightExercises.get(record).getText());
+                    weightExercises.get(record).setText("amount");
+                    exerciseTypes.get(record).setText("");
+                } else {
+
+                    repslabels.get(record).setText("4 x 14");
+                }
+            }
+        } else {
+            for(int record = 0; record < 5; record++) {
+                if(exerciseTypes.get(record).getText().equals("amount")){
+                    repslabels.get(record).setText("3 x " + weightExercises.get(record).getText());
+                    weightExercises.get(record).setText("amount");
+                    exerciseTypes.get(record).setText("");
+                } else {
+
+                    repslabels.get(record).setText("3 x 10");
+                }
+            }
+        }
+
+
+        addListFeedback();
     }
 
+
+    private void levelup() {
+
+        ExercisesEntity exercisesEntity;
+        int time;
+        int day = userEntity.getDays();
+
+        exercisesEntity = exercisesService.getEntityByName(userEntity.getGlutes());
+        time = exercisesEntity.getTime();
+        if(day%time == 0) {
+            userEntity.setGlutesw(userEntity.getGlutesw() + 1);
+        }
+
+        exercisesEntity = exercisesService.getEntityByName(userEntity.getQuads());
+        time = exercisesEntity.getTime();
+        if(day%time == 0) {
+            userEntity.setQuadsw(userEntity.getQuadsw() + 1);
+        }
+
+        exercisesEntity = exercisesService.getEntityByName(userEntity.getHamstring());
+        time = exercisesEntity.getTime();
+        if(day%time == 0) {
+            userEntity.setHamstringw(userEntity.getHamstringw() + 1);
+        }
+
+        exercisesEntity = exercisesService.getEntityByName(userEntity.getCalves());
+        time = exercisesEntity.getTime();
+        if(day%time == 0) {
+            userEntity.setCalvesw(userEntity.getCalvesw() + 1);
+        }
+
+        exercisesEntity = exercisesService.getEntityByName(userEntity.getAbsLeg());
+        time = exercisesEntity.getTime();
+        if(day%time == 0) {
+            userEntity.setAbsLegw(userEntity.getAbsLegw() + 1);
+        }
+
+
+        if(day > 1) {
+
+            exercisesEntity = exercisesService.getEntityByName(userEntity.getShoulders());
+            time = exercisesEntity.getTime();
+            if (day % time == 0) {
+                userEntity.setShouldersw(userEntity.getShouldersw() + 1);
+            }
+
+            exercisesEntity = exercisesService.getEntityByName(userEntity.getChest());
+            time = exercisesEntity.getTime();
+            if (day % time == 0) {
+                userEntity.setChestw(userEntity.getChestw() + 1);
+            }
+
+            exercisesEntity = exercisesService.getEntityByName(userEntity.getBiceps());
+            time = exercisesEntity.getTime();
+            if (day % time == 0) {
+                userEntity.setBicepsw(userEntity.getBicepsw() + 1);
+            }
+
+            exercisesEntity = exercisesService.getEntityByName(userEntity.getBack());
+            time = exercisesEntity.getTime();
+            if (day % time == 0) {
+                userEntity.setBackw(userEntity.getBackw() + 1);
+            }
+
+            exercisesEntity = exercisesService.getEntityByName(userEntity.getAbsUp());
+            time = exercisesEntity.getTime();
+            if (day % time == 0) {
+                userEntity.setAbsUpw(userEntity.getAbsUpw() + 1);
+            }
+        }
+    }
 
     private void whichday() {
         cardioTime.setText("10 perc");
@@ -120,87 +231,129 @@ public class mainpageController extends Conroller {
             labelExercise6.setText(userEntity.getAbsUp());
 
             weightExercise1.setText(String.valueOf(userEntity.getShouldersw()));
-            weightExercise2.setText(String.valueOf(userEntity.getCalvesw()));
+            weightExercise2.setText(String.valueOf(userEntity.getChestw()));
             weightExercise3.setText(String.valueOf(userEntity.getBicepsw()));
             weightExercise4.setText(String.valueOf(userEntity.getBackw()));
             weightExercise5.setText(String.valueOf(userEntity.getAbsUpw()));
         }
 
-       /* ExercisesEntity exercisesEntity = exercisesService.getEntityByName(String.valueOf(labelExercise1));
-        exerciseType1.setText(exercisesEntity.getType());*/
 
-        List<Label> repslabel = Arrays.asList(repsAmount1,repsAmount2,repsAmount3,repsAmount4,repsAmount5);
 
-        if(userEntity.getType().equals("Weight Loss")){
-            for(int labels = 0; labels < 5; labels++) {
-                repslabel.get(labels).setText("4 x 14");
-            }
-        } else {
-            for(int labels = 0; labels < 5; labels++) {
-                repslabel.get(labels).setText("3 x 10");
-            }
+    }
+
+    private void addListFeedback(){
+        List<String> feedback = Arrays.asList("Too Easy", "Good", "Too Hard");
+        List<ChoiceBox> choiceBoxes = Arrays.asList(feedback1, feedback2, feedback3, feedback4, feedback5);
+        for(int list = 0; list < 5; list++){
+            choiceBoxes.get(list).getItems().addAll(feedback);
+            choiceBoxes.get(list).getSelectionModel().select(1);
         }
     }
 
     public void actionNextDay(ActionEvent actionEvent) {
+
+        if(userEntity.getDays()%2 == 1) {
+            if (feedback1.getSelectionModel().getSelectedItem().toString().equals("Too Hard")) {
+                userEntity.setGlutesw(userEntity.getGlutesw() - 1);
+                System.out.println("ASDASDASD  " + userEntity.getGlutesw());
+            } else if (feedback1.getSelectionModel().getSelectedItem().toString().equals("Too Easy")) {
+                userEntity.setGlutesw(userEntity.getGlutesw() + 1);
+            }
+
+            if (feedback2.getSelectionModel().getSelectedItem().toString().equals("Too Hard")) {
+                userEntity.setQuadsw(userEntity.getQuadsw() - 1);
+            } else if (feedback2.getSelectionModel().getSelectedItem().toString().equals("Too Easy")) {
+                userEntity.setQuadsw(userEntity.getQuadsw() + 1);
+            }
+
+            if (feedback3.getSelectionModel().getSelectedItem().toString().equals("Too Hard")) {
+                userEntity.setHamstringw(userEntity.getHamstringw() - 1);
+            } else if (feedback3.getSelectionModel().getSelectedItem().toString().equals("Too Easy")) {
+                userEntity.setHamstringw(userEntity.getHamstringw() + 1);
+            }
+
+            if (feedback4.getSelectionModel().getSelectedItem().toString().equals("Too Hard")) {
+                userEntity.setCalvesw(userEntity.getCalvesw() - 1);
+            } else if (feedback4.getSelectionModel().getSelectedItem().toString().equals("Too Easy")) {
+                userEntity.setCalvesw(userEntity.getCalvesw() + 1);
+            }
+            if (feedback5.getSelectionModel().getSelectedItem().toString().equals("Too Hard")) {
+                userEntity.setAbsLegw(userEntity.getAbsLegw() - 1);
+            } else if (feedback5.getSelectionModel().getSelectedItem().toString().equals("Too Easy")) {
+                userEntity.setAbsLegw(userEntity.getAbsLegw() + 1);
+            }
+
+        } else {
+            if (feedback1.getSelectionModel().getSelectedItem().toString().equals("Too Hard")) {
+                userEntity.setShouldersw(userEntity.getShouldersw() - 1);
+            } else if (feedback1.getSelectionModel().getSelectedItem().toString().equals("Too Easy")) {
+                userEntity.setShouldersw(userEntity.getShouldersw() + 1);
+            }
+
+            if (feedback2.getSelectionModel().getSelectedItem().toString().equals("Too Hard")) {
+                userEntity.setChestw(userEntity.getChestw() - 1);
+            } else if (feedback2.getSelectionModel().getSelectedItem().toString().equals("Too Easy")) {
+                userEntity.setChestw(userEntity.getChestw() + 1);
+            }
+
+            if (feedback3.getSelectionModel().getSelectedItem().toString().equals("Too Hard")) {
+                userEntity.setBicepsw(userEntity.getBicepsw() - 1);
+            } else if (feedback3.getSelectionModel().getSelectedItem().toString().equals("Too Easy")) {
+                userEntity.setBicepsw(userEntity.getBicepsw() + 1);
+            }
+
+            if (feedback4.getSelectionModel().getSelectedItem().toString().equals("Too Hard")) {
+                userEntity.setBackw(userEntity.getBackw() - 1);
+            } else if (feedback4.getSelectionModel().getSelectedItem().toString().equals("Too Easy")) {
+                userEntity.setBackw(userEntity.getBackw() + 1);
+            }
+            if (feedback5.getSelectionModel().getSelectedItem().toString().equals("Too Hard")) {
+                userEntity.setAbsUpw(userEntity.getAbsUpw() - 1);
+            } else if (feedback5.getSelectionModel().getSelectedItem().toString().equals("Too Easy")) {
+                userEntity.setAbsUpw(userEntity.getAbsUpw() + 1);
+            }
+        }
+
         userEntity.setDays(userEntity.getDays() + 1);
-        sceneSwitch(dialogStage, "mainpage", actionEvent);
+
+        if(userEntity.getDays() < 3){
+            sceneSwitch(dialogStage, "setmainpage", actionEvent);
+        } else {
+            sceneSwitch(dialogStage, "mainpage", actionEvent);
+        }
     }
 
     public void actionSetDay(ActionEvent actionEvent) {
         sceneSwitch(dialogStage, "setmainpage", actionEvent);
     }
-}
 
-/**
- * A MAINPAGE:
- * <p>
- * Arra gondoltam, hogy hagyom a francba azt a 4 osztályt a model typesban mert nem tudom hogy hogy lehetne értelmesen szétosztani
- * a dolgokat. Jelenleg ezt szeretném megcsinálni itt:
- * - wichdaybe belépve frissítse az egész oldalt:
- * - ha láb nap:
- * állítsa be hogy láb nap van (labelDay)
- * állítsa be a bodypartok labeljeit(glutes,..) és a szetteket (4x14, 3x10)
- * - ha férfi és weightLoss:
- * állítsa be a gyakorlatok listáját (choiceboxok) (ExercisesService táblám, ahol van négy oszlop ami szabályozza ezt + jó lenne ha a nehézzel jelöltek pirosak lennének)
- * ha ezt beálította, ez alapján állítsa be, hogy mekkora legyen a súly(weightExercise) és az milyen típusú (pld: kg)
- * - ha letelt xy idő (Exercise tábla timeja) akkor növelje a súlyokat ha szükséges (Exercise tábla stepjei)
- * - ha férfi és cutting:...
- * - ha nő és weightLoss:...
- * - ha nő és cutting:...
- * - ha felsőtest nap:
- * ...
- * <p>
- * <p>
- * <p>
- * Na hát igen..ez így nagyon ronda, szóval kérnék pár ötletet, hogy ezt mégis, hogy? Hogyan legyenek osztályaim, stb?
- * Továbbá:
- * - hogy az fenébe rakjak a choiceboxba cuccokat? nem csinálja meg, akárhogy próbálkozom
- * <p>
- * - Majd az achivementsbe szeretnék rakni egy kis cuki csíkot ami jelzi hogy haladok a fogyással (már bekérem őket ),
- * de nincsenek szabályozva, mert egyelőre nem azok a legfontosabbak, de érdekelne, hogy arra milyen megoldást ajánlanál?
- * Nekem legegyszerűbbnek az tűnik, ha lemásolom a pokémonos életerőcsíkod. Vagy tudsz szebb, de egyszerű dolgot rá?
- * <p>
- * - hogyan állítgassam a gyakorlat kezdősúlyát szerinted? arra gondoltam lehetne egy új page-t csinálni ami bármikor
- * elérhető egy gombbal a mainpagen és kiválaszthatod a gyakorlatot amit szeretnél csinálni és beállíthatod hozzá a súlyt is.
- * Kb lemásolnánk ezt úgy ahogy van, csak kicserélném a labeleket textfieldre. Így a rendes mainpagen meg már csak
- * labelek lennének meg a könnyű-nehéz-pontjó beállítás. (így ha hülye értéket dobna is át tudod magadnak írni az előbb említett pagen)
- * Nekem jó ötletnek tűnik, csak kicsit sok meló..de így logikusabbnak tűnik nekem, mint mindent egy helyre nyomni
- * TEHÁT:
- * újpage ugyanez lenne mint a mostani, csak:
- * - alapértelmezetten az a day lesz, ami a mostanin is, nem lesz csak mégse és mentés gombja
- * - nem lesznek: nehézséget megadó choicebox, szett beállítás (4x14)
- * - a súly pedig textfield lesz
- * (itt lesz tehát az egész ifes szar amit írtam fent, az első belépésnél pedig automatikusan ide ugraszt a program)
- * a mostnai pedig így alakul:
- * - a gyakorlatok kiválasztása már nem lesz lehetséges, csak sima label lesz
- * a táblákban így fog alakulni:
- * - csinálni kell a usernek oszlopokat: az összes bodypart (gyakorlat mentése), az összes bodyparthoz súly
- * (súly mentése, majd későbbi változtatása steppel)
- * <p>
- * Undorító lesz a user táblám, de így -1 tábla
- * Mit gondolsz? Rossz ötlet?
- * <p>
- * <p>
- * Egyelőre nem jut eszembe több
- */
+    public void acitonMoreInfoCardio(ActionEvent actionEvent) {
+        ExercisesEntity exercisesEntity = exercisesService.getEntityByName(labelExercise1.getText());
+        getHostServices().showDocument(exercisesEntity.getDescription());
+    }
+
+    public void acitonMoreInfoGluSho(ActionEvent actionEvent) {
+        ExercisesEntity exercisesEntity = exercisesService.getEntityByName(labelExercise2.getText());
+        getHostServices().showDocument(exercisesEntity.getDescription());
+    }
+
+    public void acitonMoreInfoQuChe(ActionEvent actionEvent) {
+        ExercisesEntity exercisesEntity = exercisesService.getEntityByName(labelExercise3.getText());
+        getHostServices().showDocument(exercisesEntity.getDescription());
+    }
+
+    public void acitonMoreInfoHamBi(ActionEvent actionEvent) {
+        ExercisesEntity exercisesEntity = exercisesService.getEntityByName(labelExercise4.getText());
+        getHostServices().showDocument(exercisesEntity.getDescription());
+    }
+
+    public void acitonMoreInfoCalBa(ActionEvent actionEvent) {
+        ExercisesEntity exercisesEntity = exercisesService.getEntityByName(labelExercise5.getText());
+        getHostServices().showDocument(exercisesEntity.getDescription());
+    }
+
+    public void acitonMoreInfoAbs(ActionEvent actionEvent) {
+        ExercisesEntity exercisesEntity = exercisesService.getEntityByName(labelExercise6.getText());
+        getHostServices().showDocument(exercisesEntity.getDescription());
+    }
+}

@@ -114,6 +114,7 @@ public class setmainpageController extends Conroller {
                         .map(m -> m.getName())
                         .collect(Collectors.toList());
                 choiceBoxes.get(choices).getItems().addAll(exerciseNames);
+                choiceBoxes.get(choices).getSelectionModel().selectFirst();
             }
         } else if (userEntity.getType().equals("Weight Loss") && userEntity.getGender().equals("Male")) {
             for (int choices = 0; choices < 6; choices++) {
@@ -122,6 +123,7 @@ public class setmainpageController extends Conroller {
                         .map(m -> m.getName())
                         .collect(Collectors.toList());
                 choiceBoxes.get(choices).getItems().addAll(exerciseNames);
+                choiceBoxes.get(choices).getSelectionModel().selectFirst();
             }
 
         } else if (userEntity.getType().equals("Cutting") && userEntity.getGender().equals("Female")) {
@@ -131,6 +133,7 @@ public class setmainpageController extends Conroller {
                         .map(m -> m.getName())
                         .collect(Collectors.toList());
                 choiceBoxes.get(choices).getItems().addAll(exerciseNames);
+                choiceBoxes.get(choices).getSelectionModel().selectFirst();
             }
 
         } else if (userEntity.getType().equals("Cutting") && userEntity.getGender().equals("Male")) {
@@ -140,12 +143,16 @@ public class setmainpageController extends Conroller {
                         .map(m -> m.getName())
                         .collect(Collectors.toList());
                 choiceBoxes.get(choices).getItems().addAll(exerciseNames);
+                choiceBoxes.get(choices).getSelectionModel().selectFirst();
             }
         }
     }
 
 
     public void actionCancel(ActionEvent actionEvent) {
+        if(userEntity.getDays() < 3){
+            errorBox("Az elso es a masodik napon muszaj elmentened a kezdo adataidat.", "Hiba", "Hiba történt!");
+        }
         sceneSwitch(dialogStage, "mainpage", actionEvent);
     }
 
@@ -163,7 +170,7 @@ public class setmainpageController extends Conroller {
             userEntity.setCalves(choiceCalBa.getSelectionModel().getSelectedItem().toString());
             userEntity.setCalvesw(Integer.parseInt(textCalBa.getText()));
             userEntity.setAbsLeg(choiceAbs.getSelectionModel().getSelectedItem().toString());
-            userEntity.setAbsLegw(Integer.parseInt(textGluSho.getText()));
+            userEntity.setAbsLegw(Integer.parseInt(textAbs.getText()));
 
         } else {
             userEntity.setCardioUp(choiceCardio.getSelectionModel().getSelectedItem().toString());
@@ -177,7 +184,7 @@ public class setmainpageController extends Conroller {
             userEntity.setBack(choiceCalBa.getSelectionModel().getSelectedItem().toString());
             userEntity.setBackw(Integer.parseInt(textCalBa.getText()));
             userEntity.setAbsUp(choiceAbs.getSelectionModel().getSelectedItem().toString());
-            userEntity.setAbsUpw(Integer.parseInt(textGluSho.getText()));
+            userEntity.setAbsUpw(Integer.parseInt(textAbs.getText()));
         }
 
 
