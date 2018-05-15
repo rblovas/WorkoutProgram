@@ -315,6 +315,7 @@ public class mainpageController extends Conroller {
         }
 
         userEntity.setDays(userEntity.getDays() + 1);
+        userService.updateUser(userEntity);
 
         if(userEntity.getDays() < 3){
             sceneSwitch(dialogStage, "setmainpage", actionEvent);

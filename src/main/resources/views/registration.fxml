@@ -34,7 +34,7 @@
             <RadioButton fx:id="radioCutting" layoutX="129.0" layoutY="269.0" mnemonicParsing="false" text="Cutting" />
             <ImageView fitHeight="300.0" fitWidth="100.0" layoutX="276.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="buttonBackToLogin" layoutX="151.0" layoutY="423.0" mnemonicParsing="false" onAction="#backToLogin" text="Back to login" />
-            <ImageView fx:id="imageGender" fitHeight="300.0" fitWidth="100.0" layoutX="276.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageGender" fitHeight="300.0" fitWidth="100.0" layoutX="276.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true" />
             <Label layoutX="24.0" layoutY="304.0" text="Your weight" />
             <Label layoutX="24.0" layoutY="339.0" text="Goal weight" />
             <TextField fx:id="textYourWeight" layoutX="101.0" layoutY="300.0" />

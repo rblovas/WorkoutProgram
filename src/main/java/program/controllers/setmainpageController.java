@@ -3,10 +3,8 @@ package program.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.InputMethodEvent;
 import javafx.stage.Stage;
 import program.dao.ExercisesDAOImpl;
 import program.dao.UserDAOImpl;
@@ -47,16 +45,15 @@ public class setmainpageController extends Conroller {
     public TextField textCalBa;
     public TextField textAbs;
 
-    private  UserService userService;
     private UserEntity userEntity;
     private ExercisesService exercisesService = new ExercisesServiceImpl(new ExercisesDAOImpl(Manager.getInstance()));
     private Stage dialogStage = new Stage();
+    private UserService userService = new UserServiceImpl(new UserDAOImpl(Manager.getInstance()));
 
     @FXML
     private void initialize() {
         String name = UserServiceImpl.getUser();
 
-        userService = new UserServiceImpl(new UserDAOImpl(Manager.getInstance()));
         userEntity = userService.isRegistered(name);
 
         whichday();
@@ -102,7 +99,7 @@ public class setmainpageController extends Conroller {
     }
 
 
-    private void addlist(List<String> list){
+    private void addlist(List<String> list) {
         List<ChoiceBox> choiceBoxes = Arrays.asList(choiceCardio, choiceGluSho, choiceQuChe, choiceHamBi, choiceCalBa, choiceAbs);
         List<ExercisesEntity> entities;
         List<String> exerciseNames;
@@ -150,45 +147,59 @@ public class setmainpageController extends Conroller {
 
 
     public void actionCancel(ActionEvent actionEvent) {
-        if(userEntity.getDays() < 3){
+        if (userEntity.getDays() < 3) {
             errorBox("Az elso es a masodik napon muszaj elmentened a kezdo adataidat.", "Hiba", "Hiba történt!");
+        } else {
+            sceneSwitch(dialogStage, "mainpage", actionEvent);
         }
-        sceneSwitch(dialogStage, "mainpage", actionEvent);
+
     }
 
     public void actionSave(ActionEvent actionEvent) {
-        if (userEntity.getDays() % 2 == 1) {
+        try {
+           if (Integer.parseInt(textGluSho.getText()) < 1 || Integer.parseInt(textQuChe.getText()) < 1 ||
+                   Integer.parseInt(textHamBi.getText()) < 1 || Integer.parseInt(textCalBa.getText()) < 1 ||
+                   Integer.parseInt(textAbs.getText()) < 1){
+               errorBox("Nem adtál meg minden szükséges adatot!", "Hiba", "Hiba történt!");
+           } else {
+               if (userEntity.getDays() % 2 == 1) {
 
-            userEntity.setCardioLeg(choiceCardio.getSelectionModel().getSelectedItem().toString());
-            userEntity.setCardioLegw(10);
-            userEntity.setGlutes(choiceGluSho.getSelectionModel().getSelectedItem().toString());
-            userEntity.setGlutesw(Integer.parseInt(textGluSho.getText()));
-            userEntity.setQuads(choiceQuChe.getSelectionModel().getSelectedItem().toString());
-            userEntity.setQuadsw(Integer.parseInt(textQuChe.getText()));
-            userEntity.setHamstring(choiceHamBi.getSelectionModel().getSelectedItem().toString());
-            userEntity.setHamstringw(Integer.parseInt(textHamBi.getText()));
-            userEntity.setCalves(choiceCalBa.getSelectionModel().getSelectedItem().toString());
-            userEntity.setCalvesw(Integer.parseInt(textCalBa.getText()));
-            userEntity.setAbsLeg(choiceAbs.getSelectionModel().getSelectedItem().toString());
-            userEntity.setAbsLegw(Integer.parseInt(textAbs.getText()));
+                   userEntity.setCardioLeg(choiceCardio.getSelectionModel().getSelectedItem().toString());
+                   userEntity.setCardioLegw(10);
+                   userEntity.setGlutes(choiceGluSho.getSelectionModel().getSelectedItem().toString());
+                   userEntity.setGlutesw(Integer.parseInt(textGluSho.getText()));
+                   userEntity.setQuads(choiceQuChe.getSelectionModel().getSelectedItem().toString());
+                   userEntity.setQuadsw(Integer.parseInt(textQuChe.getText()));
+                   userEntity.setHamstring(choiceHamBi.getSelectionModel().getSelectedItem().toString());
+                   userEntity.setHamstringw(Integer.parseInt(textHamBi.getText()));
+                   userEntity.setCalves(choiceCalBa.getSelectionModel().getSelectedItem().toString());
+                   userEntity.setCalvesw(Integer.parseInt(textCalBa.getText()));
+                   userEntity.setAbsLeg(choiceAbs.getSelectionModel().getSelectedItem().toString());
+                   userEntity.setAbsLegw(Integer.parseInt(textAbs.getText()));
 
-        } else {
-            userEntity.setCardioUp(choiceCardio.getSelectionModel().getSelectedItem().toString());
-            userEntity.setCardioUpw(10);
-            userEntity.setShoulders(choiceGluSho.getSelectionModel().getSelectedItem().toString());
-            userEntity.setShouldersw(Integer.parseInt(textGluSho.getText()));
-            userEntity.setChest(choiceQuChe.getSelectionModel().getSelectedItem().toString());
-            userEntity.setChestw(Integer.parseInt(textQuChe.getText()));
-            userEntity.setBiceps(choiceHamBi.getSelectionModel().getSelectedItem().toString());
-            userEntity.setBicepsw(Integer.parseInt(textHamBi.getText()));
-            userEntity.setBack(choiceCalBa.getSelectionModel().getSelectedItem().toString());
-            userEntity.setBackw(Integer.parseInt(textCalBa.getText()));
-            userEntity.setAbsUp(choiceAbs.getSelectionModel().getSelectedItem().toString());
-            userEntity.setAbsUpw(Integer.parseInt(textAbs.getText()));
+               } else {
+                   userEntity.setCardioUp(choiceCardio.getSelectionModel().getSelectedItem().toString());
+                   userEntity.setCardioUpw(10);
+                   userEntity.setShoulders(choiceGluSho.getSelectionModel().getSelectedItem().toString());
+                   userEntity.setShouldersw(Integer.parseInt(textGluSho.getText()));
+                   userEntity.setChest(choiceQuChe.getSelectionModel().getSelectedItem().toString());
+                   userEntity.setChestw(Integer.parseInt(textQuChe.getText()));
+                   userEntity.setBiceps(choiceHamBi.getSelectionModel().getSelectedItem().toString());
+                   userEntity.setBicepsw(Integer.parseInt(textHamBi.getText()));
+                   userEntity.setBack(choiceCalBa.getSelectionModel().getSelectedItem().toString());
+                   userEntity.setBackw(Integer.parseInt(textCalBa.getText()));
+                   userEntity.setAbsUp(choiceAbs.getSelectionModel().getSelectedItem().toString());
+                   userEntity.setAbsUpw(Integer.parseInt(textAbs.getText()));
+               }
+
+               userService.updateUser(userEntity);
+
+               sceneSwitch(dialogStage, "mainpage", actionEvent);
+           }
         }
-
-
-        sceneSwitch(dialogStage, "mainpage", actionEvent);
+        catch (Exception e){
+            errorBox("Nem adtál meg minden szükséges adatot!", "Hiba", "Hiba történt!");
+        }
     }
 
 

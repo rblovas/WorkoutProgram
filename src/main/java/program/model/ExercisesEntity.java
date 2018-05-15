@@ -15,7 +15,6 @@ import javax.persistence.*;
 public class ExercisesEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)             // az itt zárójelben megadott 'strategy'-nek amúgy ez a default értéke is, csak szemléltetés miatt írtam ide,
     @Column(name = "ID", nullable = false, updatable = false)   // hiszen a JPA tud saját magától is egyedi ID-t generálni
     private Long id;
 

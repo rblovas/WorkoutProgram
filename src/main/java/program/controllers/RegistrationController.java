@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import program.dao.UserDAOImpl;
@@ -50,8 +51,10 @@ public class RegistrationController extends Conroller {
     private void initialize(){
         userService = new UserServiceImpl(new UserDAOImpl(Manager.getInstance()));
 
-        Image image = new Image("/IMG/genderShadow.jpg");
+        final Image image = new Image("/IMG/registrationIMG.jpg");
         imageGender.setImage(image);
+        /*A kép forrása: https://ih0.redbubble.net/image.222828122.6195/flat,800x800,075,f.jpg*/
+
         radioMale.setText("Male");
         radioMale.setToggleGroup(gender);
         radioFemale.setText("Female");
@@ -73,8 +76,6 @@ public class RegistrationController extends Conroller {
         String password = textPassword.getText();
         String passwordCheck = textPasswordCheck.getText();
 
-        Integer startweight = Integer.valueOf(textYourWeight.getText());
-        Integer goalweight = Integer.valueOf(textGoalWeight.getText());
 
         if (name.isEmpty()) {
             errorBox("Nem adtál meg felhasználónevet!", "Hiba", "Hiba történt!");
@@ -96,8 +97,6 @@ public class RegistrationController extends Conroller {
 
             userEntity.setName(name);
             userEntity.setPassword(password);
-            userEntity.setStartWeight(startweight);
-            userEntity.setGoalWeight(goalweight);
             userEntity.setDays(1);
 
 
@@ -113,23 +112,39 @@ public class RegistrationController extends Conroller {
 
 
             try {
-
-
                 if (userService.isRegistered(name) == null) {
                     userService.createUser(userEntity);
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
-                log.error("Entity mentési hiba!");
+                errorBox("Foglalt a felhasználónév", "Hiba", "Hiba történt!");
+                /*e.printStackTrace();
+                log.error("Entity mentési hiba!");*/
             }
 
-            infoBox("Sikeres regisztráció!", "Juhé!", "Most már bejelentkezhetsz!");
-            sceneSwitch(dialogStage, "login", actionEvent);
+            try {
+                Integer startweight = Integer.valueOf(textYourWeight.getText());
+                Integer goalweight = Integer.valueOf(textGoalWeight.getText());
+
+                if (startweight < 1 || goalweight < 1){
+                    errorBox("A súlyhoz megadott értékek nem megfelelők!", "Hiba", "Hiba történt!");
+                } else {
+                    userEntity.setStartWeight(startweight);
+                    userEntity.setGoalWeight(goalweight);
+
+                    infoBox("Sikeres regisztráció!", "Juhé!", "Most már bejelentkezhetsz!");
+                    sceneSwitch(dialogStage, "login", actionEvent);
+                }
+
+            } catch (Exception e) {
+                errorBox("A súlyhoz megadott értékek nem megfelelők!", "Hiba", "Hiba történt!");
+            }
         }
     }
 
     public void backToLogin(ActionEvent actionEvent) {
         sceneSwitch(dialogStage, "login", actionEvent);
     }
+
+
 }

@@ -33,6 +33,7 @@ public class UserDAOImpl implements UserDAO {
         entityManager.getTransaction().commit();
     }
 
+    @Override
     public UserEntity isLoggedIn(String name, String password) throws Exception{
         try {
             Query query = entityManager.createQuery("SELECT u FROM UserEntity u WHERE u.name = :name AND u.password = :password");
@@ -49,6 +50,7 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
+    @Override
     public UserEntity isRegistered(String name) throws IllegalArgumentException, IllegalStateException{
 
         try {

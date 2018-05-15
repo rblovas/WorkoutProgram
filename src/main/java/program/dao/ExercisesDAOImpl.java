@@ -28,12 +28,14 @@ public class ExercisesDAOImpl implements ExercisesDAO {
 
     }
 
-    public ExercisesEntity getEntityByName(String name){
+    @Override
+    public ExercisesEntity  getEntityByName(String name){
         Query query = entityManager.createQuery("select e from ExercisesEntity  e where name = :name");
         query.setParameter("name", name);
         return (ExercisesEntity) query.getSingleResult();
     }
 
+    @Override
     public List<ExercisesEntity> getWomanWeightLossExercisesName(String bodypart){
 
         TypedQuery<ExercisesEntity> query = entityManager.createQuery("SELECT e FROM ExercisesEntity e WHERE bodypart = :bodypart AND womanWeightLoss = 'y' ",ExercisesEntity.class);
@@ -42,6 +44,7 @@ public class ExercisesDAOImpl implements ExercisesDAO {
         return query.getResultList();
     }
 
+    @Override
     public List<ExercisesEntity> getManWeightLossExercisesName(String bodypart){
 
         TypedQuery<ExercisesEntity> query = entityManager.createQuery("SELECT e FROM ExercisesEntity e WHERE bodypart = :bodypart AND manWeightLoss = 'y' ",ExercisesEntity.class);
@@ -50,6 +53,7 @@ public class ExercisesDAOImpl implements ExercisesDAO {
         return query.getResultList();
     }
 
+    @Override
     public List<ExercisesEntity> getWomanCuttingExercisesName(String bodypart){
 
         TypedQuery<ExercisesEntity> query = entityManager.createQuery("SELECT e FROM ExercisesEntity e WHERE bodypart = :bodypart AND womanCutting = 'y' ",ExercisesEntity.class);
@@ -58,6 +62,7 @@ public class ExercisesDAOImpl implements ExercisesDAO {
         return query.getResultList();
     }
 
+    @Override
     public List<ExercisesEntity> getManCuttingExercisesName(String bodypart){
 
         TypedQuery<ExercisesEntity> query = entityManager.createQuery("SELECT e FROM ExercisesEntity e WHERE bodypart = :bodypart AND manCutting = 'y' ",ExercisesEntity.class);
