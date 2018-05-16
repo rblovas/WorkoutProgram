@@ -37,6 +37,13 @@ public class ExercisesServiceImplTest {
         ExercisesDAOImpl dao = new ExercisesDAOImpl(Manager.getInstance());
         ExercisesServiceImpl exercisesService = new ExercisesServiceImpl(dao);
         exercisesService.createExercise(createTestEntity());
+    }
+
+    @AfterClass
+    public static void after(){
+        ExercisesDAOImpl dao = new ExercisesDAOImpl(Manager.getInstance());
+        ExercisesServiceImpl exercisesService = new ExercisesServiceImpl(dao);
+        exercisesService.deleteExercise(exercisesService.getEntityByName("Teszt"));
 
     }
 
@@ -73,5 +80,4 @@ public class ExercisesServiceImplTest {
     }
 
 }
-
 

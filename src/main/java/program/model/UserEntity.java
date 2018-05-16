@@ -169,4 +169,5 @@ public class UserEntity implements Serializable {
 
     @Column(name = "ABS_UPW")
     private int absUpw;
+
 }

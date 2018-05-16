@@ -1,0 +1,6 @@
+.mainpageIN{
+    -fx-background-color: white;
+}
+.mainpageOUT{
+    -fx-background-image: url("../IMG/loginBg.jpeg");
+}

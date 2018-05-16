@@ -1,0 +1,6 @@
+.registrationIN{
+    -fx-background-color: white;
+}
+.registrationOUT{
+    -fx-background-image: url("../IMG/loginBg.jpeg");
+}

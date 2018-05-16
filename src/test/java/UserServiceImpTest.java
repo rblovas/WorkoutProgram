@@ -29,10 +29,18 @@ public class UserServiceImpTest {
     }
 
     @BeforeClass
-    public static void asd(){
+    public static void before(){
         UserDAOImpl dao = new UserDAOImpl(Manager.getInstance());
         UserServiceImpl userService = new UserServiceImpl(dao);
         userService.createUser(createTestEntity());
+
+    }
+
+    @AfterClass
+    public static void after(){
+        UserDAOImpl dao = new UserDAOImpl(Manager.getInstance());
+        UserServiceImpl userService = new UserServiceImpl(dao);
+        userService.deleteUser(userService.isRegistered("Teszt"));
 
     }
 

@@ -111,16 +111,7 @@ public class RegistrationController extends Conroller {
                 userEntity.setType(radioCutting.getText());
 
 
-            try {
-                if (userService.isRegistered(name) == null) {
-                    userService.createUser(userEntity);
-                }
 
-            } catch (Exception e) {
-                errorBox("Foglalt a felhasználónév", "Hiba", "Hiba történt!");
-                /*e.printStackTrace();
-                log.error("Entity mentési hiba!");*/
-            }
 
             try {
                 Integer startweight = Integer.valueOf(textYourWeight.getText());
@@ -134,6 +125,17 @@ public class RegistrationController extends Conroller {
 
                     infoBox("Sikeres regisztráció!", "Juhé!", "Most már bejelentkezhetsz!");
                     sceneSwitch(dialogStage, "login", actionEvent);
+                }
+
+                try {
+                    if (userService.isRegistered(name) == null) {
+                        userService.createUser(userEntity);
+                    }
+
+                } catch (Exception e) {
+                    errorBox("Foglalt a felhasználónév", "Hiba", "Hiba történt!");
+                /*e.printStackTrace();
+                log.error("Entity mentési hiba!");*/
                 }
 
             } catch (Exception e) {
