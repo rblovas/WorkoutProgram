@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import program.dao.ExercisesDAOImpl;
 import program.dao.UserDAOImpl;
@@ -64,6 +65,8 @@ public class mainpageController extends Conroller {
     public Label labelExercise5;
     public Label labelExercise6;
     public Label labelNumberOfDay;
+    public TextField textActualWeight;
+    public Label labelPercent;
 
 
     private UserEntity userEntity;
@@ -356,5 +359,11 @@ public class mainpageController extends Conroller {
     public void acitonMoreInfoAbs(ActionEvent actionEvent) {
         ExercisesEntity exercisesEntity = exercisesService.getEntityByName(labelExercise6.getText());
         getHostServices().showDocument(exercisesEntity.getDescription());
+    }
+
+    public void actionCounter(ActionEvent actionEvent) {
+        float weight = Integer.parseInt(textActualWeight.getText());
+        float percent = (weight - userEntity.getStartWeight()) / (userEntity.getGoalWeight() - userEntity.getStartWeight());
+        labelPercent.setText(String.valueOf(percent + "% -nál tartasz célod elérésében."));
     }
 }
