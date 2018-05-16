@@ -6,6 +6,7 @@ import program.model.ExercisesEntity;
 import program.model.UserEntity;
 import program.utility.Manager;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
 import java.util.List;
 
@@ -30,6 +31,13 @@ public class UserDAOImpl implements UserDAO {
     public void update(UserEntity entity) {
         entityManager.getTransaction().begin();
         entityManager.merge(entity);
+        entityManager.getTransaction().commit();
+    }
+
+    @Override
+    public void delete(UserEntity entity){
+        entityManager.getTransaction().begin();
+        entityManager.remove(entity);
         entityManager.getTransaction().commit();
     }
 

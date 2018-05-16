@@ -20,12 +20,21 @@ public class ExercisesDAOImpl implements ExercisesDAO {
 
     @Override
     public void persist(ExercisesEntity entity) {
-
+        entityManager.getTransaction().begin();
+        entityManager.persist(entity);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public void update(ExercisesEntity entity) {
 
+    }
+
+    @Override
+    public void delete(ExercisesEntity entity){
+        entityManager.getTransaction().begin();
+        entityManager.remove(entity);
+        entityManager.getTransaction().commit();
     }
 
     @Override

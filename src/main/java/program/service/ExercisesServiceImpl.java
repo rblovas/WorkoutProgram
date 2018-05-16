@@ -41,4 +41,14 @@ public class ExercisesServiceImpl implements ExercisesService{
     public List<ExercisesEntity> getManCuttingExercisesName(String bodypart) {
         return dao.getManCuttingExercisesName(bodypart);
     }
+
+    @Override
+    public void createExercise(ExercisesEntity entity){
+        dao.persist(entity);
+    }
+
+    @Override
+    public void deleteExercise(ExercisesEntity exercisesEntity) {
+        dao.delete(exercisesEntity);
+    }
 }

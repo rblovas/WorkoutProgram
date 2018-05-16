@@ -4,7 +4,8 @@ import program.model.ExercisesEntity;
 import java.util.List;
 
 public interface ExercisesService {
-
+    void createExercise(ExercisesEntity entity);
+    void deleteExercise(ExercisesEntity exercisesEntity);
     ExercisesEntity getEntityByName(String name);
    List<ExercisesEntity> getWomanWeightLossExercisesName(String bodypart);
    List<ExercisesEntity> getManWeightLossExercisesName(String bodypart);

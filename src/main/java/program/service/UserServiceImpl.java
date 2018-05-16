@@ -21,6 +21,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void deleteUser(UserEntity userEntity) {dao.delete(userEntity);}
+
+    @Override
     public void updateUser(UserEntity userEntity) {
         dao.update(userEntity);
     }
